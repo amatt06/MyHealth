@@ -1,4 +1,4 @@
-package rmit.myhealth;
+package rmit.myhealth.backend;
 
 import java.util.HashMap;
 import java.util.Map;

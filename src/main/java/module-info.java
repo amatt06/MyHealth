@@ -6,4 +6,6 @@ module rmit.assignment2 {
 
     opens rmit.myhealth to javafx.fxml;
     exports rmit.myhealth;
+    exports rmit.myhealth.backend;
+    opens rmit.myhealth.backend to javafx.fxml;
 }

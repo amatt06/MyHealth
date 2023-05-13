@@ -1,7 +1,8 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-import rmit.myhealth.*;
+import rmit.myhealth.backend.User;
+import rmit.myhealth.backend.UserController;
 
 /**
  * Test cases for the UserController which ensure

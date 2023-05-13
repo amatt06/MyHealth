@@ -1,4 +1,4 @@
-package rmit.myhealth;
+package rmit.myhealth.backend;
 
 public class MyHealth {
     private UserController userController;
@@ -34,5 +34,4 @@ public class MyHealth {
     public void createUser(String username, String password, String firstName, String lastName) {
         userController.createUser(username, password, firstName, lastName);
     }
-
 }

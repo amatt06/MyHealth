@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
-import rmit.myhealth.HealthRecord;
-import rmit.myhealth.HealthRecordController;
+import rmit.myhealth.backend.HealthRecord;
+import rmit.myhealth.backend.HealthRecordController;
 
 /**
  * This class contains test cases for the functionality of the HealthRecordController class.
