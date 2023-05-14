@@ -22,18 +22,21 @@ public class MyHealth {
         return this.userController;
     }
 
-    public void login(String username, String password) throws Exception {
+    public boolean login(String username, String password) {
         if (currentUser != null) {
-            throw new Exception("A user is already logged in");
+            // A user is already logged in
+            return false;
         }
 
         User user = userController.getUser(username);
 
         if (user == null || !UserAuthenticator.authenticate(user, password)) {
-            throw new Exception("Invalid username or password");
+            // Invalid username or password
+            return false;
         }
 
         currentUser = user;
+        return true;
     }
 
     public void logout() {

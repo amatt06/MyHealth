@@ -4,15 +4,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import rmit.myhealth.backend.MyHealth;
 
 import java.io.IOException;
 
-public class MainWindowController {
+public class LoginController {
     @FXML
     private Label titleLabel;
 
@@ -22,11 +20,17 @@ public class MainWindowController {
     @FXML
     private PasswordField passwordField;
 
+    private final MyHealth myHealth;
+
     @FXML
     private Button loginButton;
 
     @FXML
     private Button createUserButton;
+
+    public LoginController() {
+        myHealth = MyHealth.getInstance();
+    }
 
     @FXML
     protected void initialize() {
@@ -38,8 +42,26 @@ public class MainWindowController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // Perform login logic here
+        boolean loginStatus = myHealth.login(username, password);
+
+        if (loginStatus) {
+            // Login successful
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Login Successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Logged in successfully!");
+            alert.showAndWait();
+
+        } else {
+            // Login failed
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Login Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Invalid username or password");
+            alert.showAndWait();
+        }
     }
+
 
     @FXML
     protected void createUser() {
@@ -57,3 +79,4 @@ public class MainWindowController {
         }
     }
 }
+

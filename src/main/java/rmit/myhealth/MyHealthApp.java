@@ -14,7 +14,7 @@ public class MyHealthApp extends Application {
         MyHealth myHealth = MyHealth.getInstance();
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(MyHealthApp.class.getResource("MainWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MyHealthApp.class.getResource("Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 680);
         stage.setTitle("Welcome to MyHealth");
         stage.setScene(scene);
