@@ -1,12 +1,13 @@
 package rmit.myhealth;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import rmit.myhealth.backend.MyHealth;
 import rmit.myhealth.backend.User;
 
-public class CreateUserView {
+public class CreateUserController {
     @FXML
     private TextField usernameField;
 
@@ -19,9 +20,12 @@ public class CreateUserView {
     @FXML
     private TextField lastNameField;
 
-    private MyHealth myHealth;
+    @FXML
+    private Label feedbackLabel;
 
-    public CreateUserView() {
+    private final MyHealth myHealth;
+
+    public CreateUserController() {
         myHealth = MyHealth.getInstance();
     }
 
@@ -40,12 +44,14 @@ public class CreateUserView {
         // Check if the user was stored successfully
         User storedUser = myHealth.getUserController().getUser(username);
         if (storedUser != null) {
-            System.out.println("User stored successfully: " + storedUser.getUsername());
+            feedbackLabel.setText("User: " + storedUser.getUsername() + " Successfully Created");
+            feedbackLabel.setStyle("-fx-text-fill: green;");
         } else {
-            System.out.println("Failed to store user");
+            feedbackLabel.setText("Failed To Create User");
+            feedbackLabel.setStyle("-fx-text-fill: red;");
         }
 
-        // Clear input fields or show success message
+        // Clear input fields
         usernameField.clear();
         passwordField.clear();
         firstNameField.clear();
