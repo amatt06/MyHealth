@@ -42,18 +42,18 @@ public class MainWindowController {
     }
 
     @FXML
-    private void createUser() throws IOException {
-        // Load the Create User FXML file
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateUser.fxml"));
-        Parent createUserRoot = fxmlLoader.load();
-        CreateUserController createUserController = fxmlLoader.getController();
+    protected void createUser() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateUser.fxml"));
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
 
-        // Create a new stage for the Create User page
-        Stage createUserStage = new Stage();
-        createUserStage.setTitle("Create User");
-        createUserStage.setScene(new Scene(createUserRoot));
-
-        // Show the Create User page
-        createUserStage.show();
+            Stage stage = new Stage();
+            stage.setTitle("Create User");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

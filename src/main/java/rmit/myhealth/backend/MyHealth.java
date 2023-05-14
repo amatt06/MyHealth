@@ -1,12 +1,25 @@
 package rmit.myhealth.backend;
 
 public class MyHealth {
+
+    private static MyHealth instance;
     private UserController userController;
     private User currentUser;
 
     public MyHealth() {
         this.userController = new UserController();
         this.currentUser = null;
+    }
+
+    public static MyHealth getInstance() {
+        if (instance == null) {
+            instance = new MyHealth();
+        }
+        return instance;
+    }
+
+    public UserController getUserController() {
+        return this.userController;
     }
 
     public void login(String username, String password) throws Exception {
