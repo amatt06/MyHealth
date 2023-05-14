@@ -44,22 +44,22 @@ public class LoginController {
 
         boolean loginStatus = myHealth.login(username, password);
 
+        Alert alert;
         if (loginStatus) {
             // Login successful
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Login Successful");
             alert.setHeaderText(null);
             alert.setContentText("Logged in successfully!");
-            alert.showAndWait();
 
         } else {
             // Login failed
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login Error");
             alert.setHeaderText(null);
             alert.setContentText("Invalid username or password");
-            alert.showAndWait();
         }
+        alert.showAndWait();
     }
 
 
