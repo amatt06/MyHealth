@@ -28,6 +28,9 @@ public class LoginController {
     @FXML
     private Button createUserButton;
 
+    @FXML
+    private Label createUserFeedbackLabel;
+
     public LoginController() {
         myHealth = MyHealth.getInstance();
     }
@@ -73,6 +76,21 @@ public class LoginController {
             Stage stage = new Stage();
             stage.setTitle("Create User");
             stage.setScene(scene);
+
+            // Provide feedback on entered user details.
+            stage.setOnHidden(event -> {
+                CreateUserController createUserController = fxmlLoader.getController();
+                boolean creationStatus = createUserController.createUser();
+
+                if (creationStatus) {
+                    createUserFeedbackLabel.setText("User creation successful");
+                    createUserFeedbackLabel.setStyle("-fx-text-fill: green;");
+                } else {
+                    createUserFeedbackLabel.setText("User creation failed");
+                    createUserFeedbackLabel.setStyle("-fx-text-fill: red;");
+                }
+            });
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

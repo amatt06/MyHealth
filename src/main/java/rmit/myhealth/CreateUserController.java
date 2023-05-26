@@ -6,6 +6,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import rmit.myhealth.backend.MyHealth;
 import rmit.myhealth.backend.User;
+import javafx.stage.Stage;
 
 public class CreateUserController {
     @FXML
@@ -30,13 +31,25 @@ public class CreateUserController {
     }
 
     @FXML
-    protected void createUser() {
+    protected boolean createUser() {
         String username = usernameField.getText();
         String password = passwordField.getText();
         String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
 
-        // Perform validation if necessary
+        // Perform input field validation
+        if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
+            feedbackLabel.setText("Please Complete All Fields");
+            feedbackLabel.setStyle("-fx-text-fill: red;");
+
+            // Clear input fields
+            usernameField.clear();
+            passwordField.clear();
+            firstNameField.clear();
+            lastNameField.clear();
+
+            return false;
+        }
 
         // Save the user in the backend
         myHealth.createUser(username, password, firstName, lastName);
@@ -44,17 +57,12 @@ public class CreateUserController {
         // Check if the user was stored successfully
         User storedUser = myHealth.getUserController().getUser(username);
         if (storedUser != null) {
-            feedbackLabel.setText("User: " + storedUser.getUsername() + " Successfully Created");
-            feedbackLabel.setStyle("-fx-text-fill: green;");
-        } else {
-            feedbackLabel.setText("Failed To Create User");
-            feedbackLabel.setStyle("-fx-text-fill: red;");
-        }
+            // Close the window
+            Stage stage = (Stage) feedbackLabel.getScene().getWindow();
+            stage.close();
 
-        // Clear input fields
-        usernameField.clear();
-        passwordField.clear();
-        firstNameField.clear();
-        lastNameField.clear();
+            return true;
+        }
+        return false;
     }
 }

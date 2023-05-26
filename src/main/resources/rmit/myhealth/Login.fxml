@@ -31,4 +31,6 @@
 
     <Button onAction="#login" text="Login"/>
     <Button onAction="#createUser" text="Create User"/>
+
+    <Label fx:id="createUserFeedbackLabel"/>
 </VBox>
