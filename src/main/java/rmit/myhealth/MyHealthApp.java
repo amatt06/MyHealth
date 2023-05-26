@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import rmit.myhealth.backend.MyHealth;
+import rmit.myhealth.model.MyHealth;
 
 import java.io.IOException;
 

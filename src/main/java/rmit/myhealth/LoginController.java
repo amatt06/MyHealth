@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import rmit.myhealth.backend.MyHealth;
+import rmit.myhealth.model.MyHealth;
 
 import java.io.IOException;
 

@@ -1,9 +1,9 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-import rmit.myhealth.backend.User;
-import rmit.myhealth.backend.UserAuthenticator;
-import rmit.myhealth.backend.Profile;
+import rmit.myhealth.model.User;
+import rmit.myhealth.model.UserAuthenticator;
+import rmit.myhealth.model.Profile;
 
 /**
  * Test cases for the authentication of users using the UserAuthenticator class.

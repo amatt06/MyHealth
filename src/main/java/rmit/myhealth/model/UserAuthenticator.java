@@ -1,4 +1,4 @@
-package rmit.myhealth.backend;
+package rmit.myhealth.model;
 
 public class UserAuthenticator {
     public static boolean authenticate(User user, String password) {

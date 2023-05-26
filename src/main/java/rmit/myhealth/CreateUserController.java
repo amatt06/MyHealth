@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import rmit.myhealth.backend.MyHealth;
-import rmit.myhealth.backend.User;
+import rmit.myhealth.model.MyHealth;
+import rmit.myhealth.model.User;
 import javafx.stage.Stage;
 
 public class CreateUserController {

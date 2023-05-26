@@ -1,4 +1,4 @@
-package rmit.myhealth.backend;
+package rmit.myhealth.model;
 
 import java.util.ArrayList;
 import java.util.List;
