@@ -26,8 +26,15 @@ public class CreateUserController {
 
     private final MyHealth myHealth;
 
+    private LoginController loginController;
+
     public CreateUserController() {
         myHealth = MyHealth.getInstance();
+    }
+
+    // Setter method to set the LoginController instance
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
     }
 
     @FXML
@@ -40,10 +47,12 @@ public class CreateUserController {
         // Perform input field validation
         if (username.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
             feedbackLabel.setText("Please Complete All Fields");
-            feedbackLabel.setStyle("-fx-text-fill: red;");
+            return false;
+        }
 
-            clearFields();
-
+        // Check if the username is already taken
+        if (myHealth.getUserController().getUser(username) != null) {
+            feedbackLabel.setText("Username unavailable");
             return false;
         }
 
@@ -53,20 +62,14 @@ public class CreateUserController {
         // Check if the user was stored successfully
         User storedUser = myHealth.getUserController().getUser(username);
         if (storedUser != null) {
+            // Call the updateFeedbackLabel method in LoginController
+            loginController.updateFeedbackLabel(true);
             // Close the window
-            Stage stage = (Stage) feedbackLabel.getScene().getWindow();
+            Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.close();
-
             return true;
         }
-        return false;
-    }
 
-    private void clearFields() {
-        // Clear input fields
-        usernameField.clear();
-        passwordField.clear();
-        firstNameField.clear();
-        lastNameField.clear();
+        return false;
     }
 }

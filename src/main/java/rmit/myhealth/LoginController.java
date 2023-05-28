@@ -54,7 +54,6 @@ public class LoginController {
             alert.setTitle("Login Successful");
             alert.setHeaderText(null);
             alert.setContentText("Logged in successfully!");
-
         } else {
             // Login failed
             alert = new Alert(Alert.AlertType.ERROR);
@@ -64,7 +63,6 @@ public class LoginController {
         }
         alert.showAndWait();
     }
-
 
     @FXML
     protected void createUser() {
@@ -77,24 +75,24 @@ public class LoginController {
             stage.setTitle("Create User");
             stage.setScene(scene);
 
-            // Provide feedback on entered user details.
-            stage.setOnHidden(event -> {
-                CreateUserController createUserController = fxmlLoader.getController();
-                boolean creationStatus = createUserController.createUser();
-
-                if (creationStatus) {
-                    createUserFeedbackLabel.setText("User creation successful");
-                    createUserFeedbackLabel.setStyle("-fx-text-fill: green;");
-                } else {
-                    createUserFeedbackLabel.setText("User creation failed");
-                    createUserFeedbackLabel.setStyle("-fx-text-fill: red;");
-                }
-            });
+            // Pass the LoginController instance to the CreateUserController
+            CreateUserController createUserController = fxmlLoader.getController();
+            createUserController.setLoginController(this);
 
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-}
 
+    // Method called by CreateUserController to update the feedback label
+    public void updateFeedbackLabel(boolean creationStatus) {
+        if (creationStatus) {
+            createUserFeedbackLabel.setText("User creation successful");
+            createUserFeedbackLabel.setStyle("-fx-text-fill: green;");
+        } else {
+            createUserFeedbackLabel.setText("User creation failed");
+            createUserFeedbackLabel.setStyle("-fx-text-fill: red;");
+        }
+    }
+}
