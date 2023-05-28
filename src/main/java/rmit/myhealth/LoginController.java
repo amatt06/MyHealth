@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import rmit.myhealth.model.MyHealth;
+import rmit.myhealth.model.User;
 
 import java.io.IOException;
 
@@ -41,28 +42,41 @@ public class LoginController {
     }
 
     @FXML
-    protected void login() {
+    protected void login() throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
         boolean loginStatus = myHealth.login(username, password);
 
-        Alert alert;
         if (loginStatus) {
-            // Login successful
-            alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Login Successful");
-            alert.setHeaderText(null);
-            alert.setContentText("Logged in successfully!");
+            // Load and display the User board window
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UserBoard.fxml"));
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+
+            // Pass the user's name and last name to the User Dashboard controller
+            UserBoardController userBoardController = fxmlLoader.getController();
+            User loggedInUser = myHealth.getUserController().getUser(username);
+            userBoardController.setUserDetails(loggedInUser.getProfile().getFirstName(), loggedInUser.getProfile().getLastName());
+
+            Stage stage = new Stage();
+            stage.setTitle("User Dashboard");
+            stage.setScene(scene);
+            stage.show();
+
+            // Close the login window
+            Stage loginStage = (Stage) loginButton.getScene().getWindow();
+            loginStage.close();
         } else {
             // Login failed
-            alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login Error");
             alert.setHeaderText(null);
             alert.setContentText("Invalid username or password");
+            alert.showAndWait();
         }
-        alert.showAndWait();
     }
+
 
     @FXML
     protected void createUser() {
