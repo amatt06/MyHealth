@@ -42,11 +42,7 @@ public class CreateUserController {
             feedbackLabel.setText("Please Complete All Fields");
             feedbackLabel.setStyle("-fx-text-fill: red;");
 
-            // Clear input fields
-            usernameField.clear();
-            passwordField.clear();
-            firstNameField.clear();
-            lastNameField.clear();
+            clearFields();
 
             return false;
         }
@@ -64,5 +60,13 @@ public class CreateUserController {
             return true;
         }
         return false;
+    }
+
+    private void clearFields() {
+        // Clear input fields
+        usernameField.clear();
+        passwordField.clear();
+        firstNameField.clear();
+        lastNameField.clear();
     }
 }
