@@ -5,14 +5,17 @@ import java.time.LocalDateTime;
 public class HealthRecord {
     private double weight;
     private double temperature;
-    private String bloodPressure;
+    private double bloodPressureUpper;
+
+    private double bloodPressureLower;
     private String note;
     private LocalDateTime dateTime;
 
-    public HealthRecord(double weight, double temperature, String bloodPressure, String note, LocalDateTime dateTime) {
+    public HealthRecord(double weight, double temperature, double bloodPressureUpper, double bloodPressureLower, String note, LocalDateTime dateTime) {
         this.weight = weight;
         this.temperature = temperature;
-        this.bloodPressure = bloodPressure;
+        this.bloodPressureUpper = bloodPressureUpper;
+        this.bloodPressureLower = bloodPressureLower;
         this.note = note;
         this.dateTime = dateTime;
     }
@@ -33,12 +36,20 @@ public class HealthRecord {
         this.temperature = temperature;
     }
 
-    public String getBloodPressure() {
-        return bloodPressure;
+    public double getBloodPressureUpper() {
+        return bloodPressureUpper;
     }
 
-    public void setBloodPressure(String bloodPressure) {
-        this.bloodPressure = bloodPressure;
+    public double getBloodPressureLower() {
+        return bloodPressureLower;
+    }
+
+    public void setBloodPressureUpper(double bloodPressureUpper) {
+        this.bloodPressureUpper = bloodPressureUpper;
+    }
+
+    public void setBloodPressureLower(double bloodPressureLower) {
+        this.bloodPressureLower = bloodPressureLower;
     }
 
     public String getNote() {

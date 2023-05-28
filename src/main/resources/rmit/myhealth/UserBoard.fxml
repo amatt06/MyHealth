@@ -19,7 +19,7 @@
             <MenuItem text="Edit"/>
         </Menu>
         <Menu text="Record">
-            <MenuItem text="New"/>
+            <MenuItem text="New" onAction="#handleNewMenuItem"/>
             <MenuItem text="Edit"/>
             <MenuItem text="View All"/>
             <MenuItem text="Delete"/>

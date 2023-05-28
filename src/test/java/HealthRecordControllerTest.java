@@ -19,7 +19,7 @@ class HealthRecordControllerTest {
     @Test
     void testAddRecord() {
         HealthRecordController controller = new HealthRecordController();
-        HealthRecord record = new HealthRecord(70.0, 36.6, "120/80", "Note", LocalDateTime.now());
+        HealthRecord record = new HealthRecord(70.0, 36.6, 120, 90, "Note", LocalDateTime.now());
         controller.addRecord(record);
         List<HealthRecord> records = controller.getHealthRecords();
         assertEquals(1, records.size());
@@ -30,9 +30,9 @@ class HealthRecordControllerTest {
     @Test
     void testEditRecord() {
         HealthRecordController controller = new HealthRecordController();
-        HealthRecord record = new HealthRecord(70.0, 36.6, "120/80", "Note", LocalDateTime.now());
+        HealthRecord record = new HealthRecord(70.0, 36.6, 32.4, 13.6, "New Note", LocalDateTime.now());
         controller.addRecord(record);
-        HealthRecord newRecord = new HealthRecord(75.0, 36.5, "130/90", "New Note", LocalDateTime.now());
+        HealthRecord newRecord = new HealthRecord(75.0, 36.5, 130.4, 90.0, "New Note", LocalDateTime.now());
         controller.editRecord(0, newRecord);
         List<HealthRecord> records = controller.getHealthRecords();
         assertEquals(1, records.size());
@@ -43,10 +43,8 @@ class HealthRecordControllerTest {
     @Test
     void testDeleteRecord() {
         HealthRecordController controller = new HealthRecordController();
-        HealthRecord record1 = new HealthRecord(70.0, 36.6, "120/80",
-                "Note", LocalDateTime.now());
-        HealthRecord record2 = new HealthRecord(75.0, 36.5, "130/90",
-                "New Note", LocalDateTime.now());
+        HealthRecord record1 = new HealthRecord(75.0, 36.5, 130.4, 90.0, "New Note", LocalDateTime.now());
+        HealthRecord record2 = new HealthRecord(75.0, 36.5, 130.4, 90.0, "New Note", LocalDateTime.now());
         controller.addRecord(record1);
         controller.addRecord(record2);
         controller.deleteRecord(0);
@@ -60,19 +58,28 @@ class HealthRecordControllerTest {
     void testGetHealthRecords() {
         HealthRecordController controller = new HealthRecordController();
         List<HealthRecord> expectedRecords = new ArrayList<>();
-        expectedRecords.add(new HealthRecord(70.0, 37.0, "120/80", "Healthy"
-                , LocalDateTime.of(2022, 1, 1, 8, 0)));
-        expectedRecords.add(new HealthRecord(75.0, 36.5, "115/75", "Feeling good"
-                , LocalDateTime.of(2022, 2, 1, 8, 0)));
-        expectedRecords.add(new HealthRecord(72.5, 37.5, "130/90", "Slight fever"
-                , LocalDateTime.of(2022, 3, 1, 8, 0)));
+        expectedRecords.add(new HealthRecord(70.0, 37.0, 120.0, 80.0, "Healthy",
+                LocalDateTime.of(2022, 1, 1, 8, 0)));
+        expectedRecords.add(new HealthRecord(75.0, 36.5, 115.0, 75.0, "Feeling good",
+                LocalDateTime.of(2022, 2, 1, 8, 0)));
+        expectedRecords.add(new HealthRecord(72.5, 37.5, 130.0, 90.0, "Slight fever",
+                LocalDateTime.of(2022, 3, 1, 8, 0)));
         controller.addRecord(expectedRecords.get(0));
         controller.addRecord(expectedRecords.get(1));
         controller.addRecord(expectedRecords.get(2));
 
         List<HealthRecord> actualRecords = controller.getHealthRecords();
 
-        assertEquals(expectedRecords, actualRecords);
+        assertEquals(expectedRecords.size(), actualRecords.size());
+        for (int i = 0; i < expectedRecords.size(); i++) {
+            HealthRecord expectedRecord = expectedRecords.get(i);
+            HealthRecord actualRecord = actualRecords.get(i);
+            assertEquals(expectedRecord.getWeight(), actualRecord.getWeight());
+            assertEquals(expectedRecord.getTemperature(), actualRecord.getTemperature());
+            assertEquals(expectedRecord.getBloodPressureUpper(), actualRecord.getBloodPressureUpper());
+            assertEquals(expectedRecord.getBloodPressureLower(), actualRecord.getBloodPressureLower());
+            assertEquals(expectedRecord.getNote(), actualRecord.getNote());
+            assertEquals(expectedRecord.getDateTime(), actualRecord.getDateTime());
+        }
     }
-
 }
