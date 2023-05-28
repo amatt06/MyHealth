@@ -8,6 +8,6 @@ public class UserBoardController {
     private Label welcomeLabel;
 
     public void setUserDetails(String firstName, String lastName) {
-        welcomeLabel.setText("Welcome, " + firstName + " " + lastName);
+        welcomeLabel.setText(firstName + " " + lastName);
     }
 }

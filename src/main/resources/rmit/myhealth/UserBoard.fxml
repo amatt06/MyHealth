@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="rmit.myhealth.UserBoardController"
-            prefHeight="400.0" prefWidth="600.0">
-    <Label fx:id="welcomeLabel" layoutX="30" layoutY="30"/>
+<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="rmit.myhealth.UserBoardController">
+    <MenuBar prefHeight="27.0" prefWidth="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+             AnchorPane.topAnchor="0.0">
+        <Menu text="Profile">
+            <MenuItem text="Edit"/>
+        </Menu>
+        <Menu text="Record">
+            <MenuItem text="New"/>
+            <MenuItem text="Edit"/>
+            <MenuItem text="View All"/>
+            <MenuItem text="Delete"/>
+        </Menu>
+        <Menu text="Export">
+            <MenuItem text="Select Records"/>
+        </Menu>
+        <Menu text="About">
+            <MenuItem text="About MyHealth"/>
+        </Menu>
+        <Menu text="Account">
+            <MenuItem text="Log Out"/>
+        </Menu>
+    </MenuBar>
+    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
+        <Label fx:id="welcomeLabel" alignment="CENTER" prefHeight="100.0" prefWidth="600.0" text="First Last">
+            <font>
+                <Font size="48.0"/>
+            </font>
+            <padding>
+                <Insets bottom="20.0" top="20.0"/>
+            </padding>
+        </Label>
+        <Line endX="100.0" opacity="0.41" startX="-100.0"/>
+    </VBox>
+    <VBox alignment="CENTER" prefHeight="465.0" prefWidth="1152.0" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Circle fill="#1f93ff00" radius="100.0" stroke="BLACK" strokeType="INSIDE">
+            <VBox.margin>
+                <Insets bottom="60.0" top="30.0"/>
+            </VBox.margin>
+        </Circle>
+    </VBox>
 </AnchorPane>
