@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="rmit.myhealth.ViewRecordsController">
-    <TableView fx:id="recordsTable">
+<AnchorPane prefHeight="588.0" prefWidth="1014.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rmit.myhealth.ViewRecordsController">
+   <VBox layoutX="-1.0">
+      <children>
+         <Label text="Health Records">
+            <font>
+               <Font size="48.0" />
+            </font>
+            <padding>
+               <Insets bottom="20.0" left="30.0" top="20.0" />
+            </padding>
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+         </Label>
+      </children>
+   </VBox>
+    <TableView fx:id="recordsTable" layoutY="113.0" prefHeight="475.0" prefWidth="1014.0">
         <columns>
-            <TableColumn text="Weight" fx:id="weightColumn" prefWidth="100"/>
-            <TableColumn text="Temperature" fx:id="temperatureColumn" prefWidth="100"/>
-            <TableColumn text="Blood Pressure (Upper)" fx:id="bloodPressureUpperColumn" prefWidth="100"/>
-            <TableColumn text="Blood Pressure (Lower)" fx:id="bloodPressureLowerColumn" prefWidth="100"/>
-            <TableColumn text="Note" fx:id="noteColumn" prefWidth="200"/>
-            <TableColumn text="Date/Time" fx:id="dateTimeColumn" prefWidth="150"/>
+            <TableColumn fx:id="weightColumn" prefWidth="100" text="Weight" />
+            <TableColumn fx:id="temperatureColumn" prefWidth="82.0" text="Temperature" />
+            <TableColumn fx:id="bloodPressureUpperColumn" prefWidth="151.0" text="Blood Pressure (Upper)" />
+            <TableColumn fx:id="bloodPressureLowerColumn" prefWidth="153.0" text="Blood Pressure (Lower)" />
+            <TableColumn fx:id="noteColumn" prefWidth="402.0" text="Note" />
+            <TableColumn fx:id="dateTimeColumn" prefWidth="125.0" text="Date/Time" />
         </columns>
     </TableView>
 </AnchorPane>
