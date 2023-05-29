@@ -56,5 +56,19 @@ public class UserBoardController {
         }
     }
 
+    @FXML
+    private void handleEdit() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditRecord.fxml"));
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
 
+            Stage editRecordStage = new Stage();
+            editRecordStage.setTitle("Edit Record");
+            editRecordStage.setScene(scene);
+            editRecordStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -20,7 +20,7 @@
         </Menu>
         <Menu text="Record">
             <MenuItem text="New" onAction="#handleNewRecord"/>
-            <MenuItem text="Edit"/>
+            <MenuItem text="Edit" onAction="#handleEdit"/>
             <MenuItem text="View All" onAction="#handleViewAll"/>
             <MenuItem text="Delete"/>
         </Menu>
