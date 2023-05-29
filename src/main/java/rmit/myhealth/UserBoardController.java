@@ -59,14 +59,18 @@ public class UserBoardController {
     @FXML
     private void handleEdit() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditRecord.fxml"));
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditRecord.fxml"));
+            Parent root = loader.load();
+            EditRecordController controller = loader.getController();
 
-            Stage editRecordStage = new Stage();
-            editRecordStage.setTitle("Edit Record");
-            editRecordStage.setScene(scene);
-            editRecordStage.show();
+            // Set the user's health records in the ViewRecordsController
+            HealthRecordController healthRecordController = MyHealth.getInstance().getCurrentUser().getHealthRecordController();
+            controller.setRecordsTable(healthRecordController.getHealthRecords());
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
