@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import rmit.myhealth.EditRecordController;
+import rmit.myhealth.ViewRecordsController;
 import rmit.myhealth.model.HealthRecordController;
 import rmit.myhealth.model.MyHealth;
 
@@ -42,10 +44,7 @@ public class UserBoardController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewRecords.fxml"));
             Parent root = loader.load();
             ViewRecordsController controller = loader.getController();
-
-            // Set the user's health records in the ViewRecordsController
-            HealthRecordController healthRecordController = MyHealth.getInstance().getCurrentUser().getHealthRecordController();
-            controller.setRecordsTable(healthRecordController.getHealthRecords());
+            controller.initialise();
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -62,10 +61,7 @@ public class UserBoardController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("EditRecord.fxml"));
             Parent root = loader.load();
             EditRecordController controller = loader.getController();
-
-            // Set the user's health records in the ViewRecordsController
-            HealthRecordController healthRecordController = MyHealth.getInstance().getCurrentUser().getHealthRecordController();
-            controller.setRecordsTable(healthRecordController.getHealthRecords());
+            controller.initialise();
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();
