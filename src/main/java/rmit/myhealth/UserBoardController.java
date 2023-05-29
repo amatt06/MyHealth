@@ -6,10 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import rmit.myhealth.EditRecordController;
-import rmit.myhealth.ViewRecordsController;
-import rmit.myhealth.model.HealthRecordController;
-import rmit.myhealth.model.MyHealth;
 
 import java.io.IOException;
 

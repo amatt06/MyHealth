@@ -3,7 +3,6 @@ package rmit.myhealth;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import rmit.myhealth.RecordTable;
 import rmit.myhealth.model.HealthRecord;
 import rmit.myhealth.model.HealthRecordController;
 import rmit.myhealth.model.MyHealth;
