@@ -1,5 +1,6 @@
 package rmit.myhealth;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -8,6 +9,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import rmit.myhealth.model.HealthRecord;
 import rmit.myhealth.model.HealthRecordController;
 import rmit.myhealth.model.MyHealth;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ViewRecordsController {
     @FXML
@@ -39,7 +43,11 @@ public class ViewRecordsController {
         bloodPressureUpperColumn.setCellValueFactory(new PropertyValueFactory<>("bloodPressureUpper"));
         bloodPressureLowerColumn.setCellValueFactory(new PropertyValueFactory<>("bloodPressureLower"));
         noteColumn.setCellValueFactory(new PropertyValueFactory<>("note"));
-        dateTimeColumn.setCellValueFactory(new PropertyValueFactory<>("dateTime"));
+        dateTimeColumn.setCellValueFactory(cellData -> {
+            LocalDateTime dateTime = cellData.getValue().getDateTime();
+            String formattedDateTime = dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy (H:m)"));
+            return new SimpleStringProperty(formattedDateTime);
+        });
 
         // Retrieve the user's health records from the HealthRecordController
         HealthRecordController healthRecordController = MyHealth.getInstance().getCurrentUser().getHealthRecordController();
