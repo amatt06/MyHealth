@@ -19,9 +19,9 @@
             <MenuItem text="Edit"/>
         </Menu>
         <Menu text="Record">
-            <MenuItem text="New" onAction="#handleNewMenuItem"/>
+            <MenuItem text="New" onAction="#handleNewRecord"/>
             <MenuItem text="Edit"/>
-            <MenuItem text="View All"/>
+            <MenuItem text="View All" onAction="#handleViewAll"/>
             <MenuItem text="Delete"/>
         </Menu>
         <Menu text="Export">

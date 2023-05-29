@@ -1,5 +1,8 @@
 package rmit.myhealth.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +13,8 @@ public class HealthRecordController {
         healthRecords = new ArrayList<>();
     }
 
-    public List<HealthRecord> getHealthRecords() {
-        return healthRecords;
+    public ObservableList<HealthRecord> getHealthRecords() {
+        return FXCollections.observableList(healthRecords);
     }
 
     public void addRecord(HealthRecord record) {
