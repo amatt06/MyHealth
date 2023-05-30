@@ -1,6 +1,7 @@
 package rmit.myhealth;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -45,10 +46,17 @@ public class DeleteRecordController {
             if (event.getClickCount() == 2) {
                 HealthRecord selectedRecord = recordsTable.getSelectionModel().getSelectedItem();
                 if (selectedRecord != null) {
-                    // DELETE THE RECORD
+                    deleteRecord(selectedRecord);
+                    closeWindow();
+                    successAlert();
                 }
             }
         });
+    }
+
+    private void deleteRecord(HealthRecord record) {
+        HealthRecordController healthRecordController = MyHealth.getInstance().getCurrentUser().getHealthRecordController();
+        healthRecordController.deleteRecord(record);
     }
 
     @FXML
@@ -56,5 +64,13 @@ public class DeleteRecordController {
         // Get the reference to the current window's stage
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
+    }
+
+    private void successAlert() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Record Deleted");
+        alert.setHeaderText(null);
+        alert.setContentText("Record was successfully deleted.");
+        alert.showAndWait();
     }
 }

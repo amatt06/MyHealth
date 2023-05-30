@@ -47,7 +47,7 @@ class HealthRecordControllerTest {
         HealthRecord record2 = new HealthRecord(75.0, 36.5, 130.4, 90.0, "New Note", LocalDateTime.now());
         controller.addRecord(record1);
         controller.addRecord(record2);
-        controller.deleteRecord(0);
+        controller.deleteRecord(record1);
         List<HealthRecord> records = controller.getHealthRecords();
         assertEquals(1, records.size());
         assertEquals(record2, records.get(0));

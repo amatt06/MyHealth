@@ -25,8 +25,8 @@ public class HealthRecordController {
         healthRecords.set(index, record);
     }
 
-    public void deleteRecord(int index) {
-        healthRecords.remove(index);
+    public void deleteRecord(HealthRecord record) {
+        healthRecords.remove(record);
     }
 
     public void exportRecords() {
