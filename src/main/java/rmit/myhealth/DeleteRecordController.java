@@ -34,6 +34,7 @@ public class DeleteRecordController {
     @FXML
     private Button cancelButton;
 
+    // Present the table of records to the user.
     public void initialise() {
         RecordTable.setupTableColumns(recordsTable, weightColumn, temperatureColumn, bloodPressureUpperColumn, bloodPressureLowerColumn, noteColumn, dateTimeColumn);
 
@@ -54,6 +55,7 @@ public class DeleteRecordController {
         });
     }
 
+    // Get confirmation and remove health record.
     private boolean deleteRecord(HealthRecord record) {
         Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmAlert.setTitle("Confirm Deletion");
@@ -77,6 +79,7 @@ public class DeleteRecordController {
     }
 
 
+    // Close the current window
     @FXML
     private void closeWindow() {
         // Get the reference to the current window's stage
@@ -84,6 +87,7 @@ public class DeleteRecordController {
         stage.close();
     }
 
+    // Confirm succesfull deletion.
     private void successAlert() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Record Deleted");
