@@ -6,10 +6,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import rmit.myhealth.model.HealthRecord;
-import rmit.myhealth.model.MyHealth;
-
-import java.security.PrivateKey;
-import java.time.LocalDateTime;
 
 public class EditDetailsController {
     @FXML
