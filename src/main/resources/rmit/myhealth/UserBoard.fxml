@@ -5,14 +5,14 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.image.ImageView?>
 
-<?import javafx.scene.layout.StackPane?>
 <AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="rmit.myhealth.UserBoardController">
     <MenuBar prefHeight="27.0" prefWidth="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -21,10 +21,10 @@
             <MenuItem text="Edit"/>
         </Menu>
         <Menu text="Record">
-            <MenuItem text="New" onAction="#handleNewRecord"/>
-            <MenuItem text="Edit" onAction="#handleEdit"/>
-            <MenuItem text="View All" onAction="#handleViewAll"/>
-            <MenuItem text="Delete" onAction="#handleDelete"/>
+            <MenuItem onAction="#handleNewRecord" text="New"/>
+            <MenuItem onAction="#handleEdit" text="Edit"/>
+            <MenuItem onAction="#handleViewAll" text="View All"/>
+            <MenuItem onAction="#handleDelete" text="Delete"/>
         </Menu>
         <Menu text="Export">
             <MenuItem text="Select Records"/>
@@ -46,17 +46,16 @@
                 <Insets bottom="20.0" top="20.0"/>
             </padding>
         </Label>
+        <Line endX="100.0" opacity="0.41" startX="-100.0"/>
     </VBox>
-    <Line endX="100.0" opacity="0.41" startX="-100.0"/>
     <VBox alignment="CENTER" prefHeight="465.0" prefWidth="1152.0" AnchorPane.bottomAnchor="0.0"
           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        <StackPane>
-            <Circle fill="#1f93ff00" radius="100.0" stroke="BLACK" strokeType="INSIDE">
-                <VBox.margin>
-                    <Insets bottom="60.0" top="30.0"/>
-                </VBox.margin>
-            </Circle>
-            <ImageView fx:id="profilePictureImageView" fitWidth="100" fitHeight="100"/>
+        <StackPane prefWidth="200" prefHeight="200">
+            <ImageView fx:id="profilePictureImageView" fitHeight="200.0" fitWidth="232.0" StackPane.alignment="CENTER">
+                <clip>
+                    <Circle centerX="116.0" centerY="100.0" radius="100.0"/>
+                </clip>
+            </ImageView>
         </StackPane>
     </VBox>
 </AnchorPane>
