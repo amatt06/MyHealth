@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -35,6 +37,9 @@ public class EditRecordController {
     @FXML
     private TableColumn<HealthRecord, String> dateTimeColumn;
 
+    @FXML
+    private Button cancelButton;
+
     public void initialise() {
         RecordTable.setupTableColumns(recordsTable, weightColumn, temperatureColumn, bloodPressureUpperColumn, bloodPressureLowerColumn, noteColumn, dateTimeColumn);
 
@@ -47,6 +52,7 @@ public class EditRecordController {
                 HealthRecord selectedRecord = recordsTable.getSelectionModel().getSelectedItem();
                 if (selectedRecord != null) {
                     openEditRecordWindow(selectedRecord);
+                    closeWindow();
                 }
             }
         });
@@ -66,5 +72,12 @@ public class EditRecordController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void closeWindow() {
+        // Get the reference to the current window's stage
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
     }
 }

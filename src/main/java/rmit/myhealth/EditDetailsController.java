@@ -1,6 +1,7 @@
 package rmit.myhealth;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -62,6 +63,7 @@ public class EditDetailsController {
             record.setNote(newNote);
 
             closeWindow();
+            successAlert();
         }
     }
 
@@ -70,5 +72,13 @@ public class EditDetailsController {
         // Get the reference to the current window's stage
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
+    }
+
+    private void successAlert() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Record Updated");
+        alert.setHeaderText(null);
+        alert.setContentText("Record was successfully updated.");
+        alert.showAndWait();
     }
 }
