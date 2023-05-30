@@ -45,7 +45,7 @@ public class EditDetailsController {
         noteTextArea.setText(record.getNote());
     }
 
-    // Save the new values of the record
+    // Retrieve and Save edited record.
     @FXML
     private void saveRecord() {
         if (record != null) {
@@ -61,10 +61,7 @@ public class EditDetailsController {
             record.setBloodPressureLower(newBloodPressureLower);
             record.setNote(newNote);
 
-            // Save the changes to the HealthRecordController or database
-
-            Stage stage = (Stage) saveButton.getScene().getWindow();
-            stage.close();
+            closeWindow();
         }
     }
 
