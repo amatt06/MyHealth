@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import rmit.myhealth.model.HealthRecord;
 import rmit.myhealth.model.MyHealth;
 
+import java.security.PrivateKey;
 import java.time.LocalDateTime;
 
 public class EditDetailsController {
@@ -28,6 +29,9 @@ public class EditDetailsController {
 
     @FXML
     private Button saveButton;
+
+    @FXML
+    private Button cancelButton;
 
     private HealthRecord record;
 
@@ -66,5 +70,12 @@ public class EditDetailsController {
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
         }
+    }
+
+    @FXML
+    private void closeWindow() {
+        // Get the reference to the current window's stage
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
     }
 }
