@@ -1,14 +1,13 @@
 package rmit.myhealth;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import rmit.myhealth.model.HealthRecord;
 import rmit.myhealth.model.HealthRecordController;
 import rmit.myhealth.model.MyHealth;
+
+import java.util.Optional;
 
 public class DeleteRecordController {
     @FXML
@@ -46,18 +45,37 @@ public class DeleteRecordController {
             if (event.getClickCount() == 2) {
                 HealthRecord selectedRecord = recordsTable.getSelectionModel().getSelectedItem();
                 if (selectedRecord != null) {
-                    deleteRecord(selectedRecord);
-                    closeWindow();
-                    successAlert();
+                    if (deleteRecord(selectedRecord)) {
+                        closeWindow();
+                        successAlert();
+                    }
                 }
             }
         });
     }
 
-    private void deleteRecord(HealthRecord record) {
-        HealthRecordController healthRecordController = MyHealth.getInstance().getCurrentUser().getHealthRecordController();
-        healthRecordController.deleteRecord(record);
+    private boolean deleteRecord(HealthRecord record) {
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirm Deletion");
+        confirmAlert.setHeaderText(null);
+        confirmAlert.setContentText("Are you sure you want to delete this record?");
+
+        ButtonType deleteButtonType = new ButtonType("Delete");
+        ButtonType cancelButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        confirmAlert.getButtonTypes().setAll(deleteButtonType, cancelButtonType);
+
+        boolean confirmed = false;
+
+        Optional<ButtonType> result = confirmAlert.showAndWait();
+        if (result.isPresent() && result.get() == deleteButtonType) {
+            HealthRecordController healthRecordController = MyHealth.getInstance().getCurrentUser().getHealthRecordController();
+            healthRecordController.deleteRecord(record);
+            confirmed = true;
+        }
+        return confirmed;
     }
+
 
     @FXML
     private void closeWindow() {
