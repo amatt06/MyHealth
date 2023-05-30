@@ -1,6 +1,6 @@
 package rmit.myhealth.model;
 
-import java.awt.Image;
+import javafx.scene.image.Image;
 
 public class Profile {
     private String firstName;
@@ -44,4 +44,3 @@ public class Profile {
         this.profilePicture = profilePicture;
     }
 }
-

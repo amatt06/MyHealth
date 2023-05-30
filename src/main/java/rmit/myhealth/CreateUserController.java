@@ -1,12 +1,17 @@
 package rmit.myhealth;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import rmit.myhealth.model.MyHealth;
 import rmit.myhealth.model.User;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class CreateUserController {
     @FXML
@@ -24,9 +29,16 @@ public class CreateUserController {
     @FXML
     private Label feedbackLabel;
 
+    @FXML
+    private Button selectPictureButton;
+
     private final MyHealth myHealth;
 
     private LoginController loginController;
+
+    private Image profilePicture;
+
+    private boolean pictureAdded = false;
 
     public CreateUserController() {
         myHealth = MyHealth.getInstance();
@@ -59,6 +71,10 @@ public class CreateUserController {
         // Save the user in the backend
         myHealth.createUser(username, password, firstName, lastName);
 
+        if (pictureAdded) {
+            myHealth.getUserController().getUser(username).getProfile().setProfilePicture(profilePicture);
+        }
+
         // Check if the user was stored successfully
         User storedUser = myHealth.getUserController().getUser(username);
         if (storedUser != null) {
@@ -71,5 +87,18 @@ public class CreateUserController {
         }
 
         return false;
+    }
+
+    @FXML
+    private void selectPicture() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png"));
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        if (selectedFile != null) {
+            // Load the selected image file
+            Image selectedPicture = new Image(selectedFile.toURI().toString());
+            pictureAdded = true;
+            profilePicture = selectedPicture;
+        }
     }
 }

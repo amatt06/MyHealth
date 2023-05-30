@@ -58,6 +58,7 @@ public class LoginController {
             UserBoardController userBoardController = fxmlLoader.getController();
             User loggedInUser = myHealth.getUserController().getUser(username);
             userBoardController.setUserDetails(loggedInUser.getProfile().getFirstName(), loggedInUser.getProfile().getLastName());
+            userBoardController.setProfilePicture(loggedInUser.getProfile().getProfilePicture());
 
             Stage stage = new Stage();
             stage.setTitle("User Dashboard");

@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,8 +15,17 @@ public class UserBoardController {
     @FXML
     private Label welcomeLabel;
 
+    @FXML
+    private ImageView profilePictureImageView;
+
+    // Method to set the user's name.
     public void setUserDetails(String firstName, String lastName) {
         welcomeLabel.setText(firstName + " " + lastName);
+    }
+
+    // Method to set the profile picture
+    public void setProfilePicture(Image profilePicture) {
+        profilePictureImageView.setImage(profilePicture);
     }
 
     @FXML
