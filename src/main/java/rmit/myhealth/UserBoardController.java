@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import rmit.myhealth.model.MyHealth;
 
 import java.io.IOException;
 
@@ -94,5 +95,19 @@ public class UserBoardController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void handleLogout() throws IOException {
+        MyHealth.getInstance().logout();
+        closeWindow();
+        MyHealthApp.openLogin();
+    }
+
+    @FXML
+    private void closeWindow() {
+        // Get the reference to the current window's stage
+        Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+        stage.close();
     }
 }

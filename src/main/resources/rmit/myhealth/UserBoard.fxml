@@ -33,7 +33,7 @@
             <MenuItem text="About MyHealth"/>
         </Menu>
         <Menu text="Account">
-            <MenuItem text="Log Out"/>
+            <MenuItem onAction="#handleLogout" text="Log Out"/>
         </Menu>
     </MenuBar>
     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0"
