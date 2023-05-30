@@ -67,4 +67,21 @@ public class UserBoardController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void handleDelete() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DeleteRecord.fxml"));
+            Parent root = loader.load();
+            DeleteRecordController controller = loader.getController();
+            controller.initialise();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

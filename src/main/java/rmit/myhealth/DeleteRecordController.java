@@ -1,9 +1,6 @@
 package rmit.myhealth;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -12,9 +9,7 @@ import rmit.myhealth.model.HealthRecord;
 import rmit.myhealth.model.HealthRecordController;
 import rmit.myhealth.model.MyHealth;
 
-import java.io.IOException;
-
-public class EditRecordController {
+public class DeleteRecordController {
     @FXML
     private TableView<HealthRecord> recordsTable;
 
@@ -50,27 +45,10 @@ public class EditRecordController {
             if (event.getClickCount() == 2) {
                 HealthRecord selectedRecord = recordsTable.getSelectionModel().getSelectedItem();
                 if (selectedRecord != null) {
-                    openEditRecordWindow(selectedRecord);
-                    closeWindow();
+                    // DELETE THE RECORD
                 }
             }
         });
-    }
-
-    public void openEditRecordWindow(HealthRecord record) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("EditDetails.fxml"));
-            Parent root = loader.load();
-            EditDetailsController controller = loader.getController();
-            controller.setRecord(record);
-
-            Stage stage = new Stage();
-            stage.setTitle("Edit Record");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML

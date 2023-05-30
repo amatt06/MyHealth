@@ -22,7 +22,7 @@
             <MenuItem text="New" onAction="#handleNewRecord"/>
             <MenuItem text="Edit" onAction="#handleEdit"/>
             <MenuItem text="View All" onAction="#handleViewAll"/>
-            <MenuItem text="Delete"/>
+            <MenuItem text="Delete" onAction="#handleDelete"/>
         </Menu>
         <Menu text="Export">
             <MenuItem text="Select Records"/>
