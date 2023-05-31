@@ -9,6 +9,9 @@ import rmit.myhealth.model.HealthRecord;
 import rmit.myhealth.model.HealthRecordController;
 import rmit.myhealth.model.MyHealth;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 public class ExportRecordsController {
@@ -83,9 +86,31 @@ public class ExportRecordsController {
 
     // Export the selected records to the csv.
     private boolean exportRecords(List<HealthRecord> records) {
-        System.out.println(records);
-        return false;
+        try {
+            FileWriter fileWriter = new FileWriter("exported_records.csv");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+
+            // Write CSV header
+            printWriter.println("Weight,Temperature,BloodPressureUpper,BloodPressureLower,Note,DateTime");
+
+            // Write each record to CSV
+            for (HealthRecord record : records) {
+                printWriter.printf("%.2f,%.2f,%.2f,%.2f,%s,%s%n",
+                        record.getWeight(),
+                        record.getTemperature(),
+                        record.getBloodPressureUpper(),
+                        record.getBloodPressureLower(),
+                        record.getNote(),
+                        record.getDateTime());
+            }
+            printWriter.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
+
 
     @FXML
     private void closeWindow() {
