@@ -3,12 +3,16 @@ package rmit.myhealth;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import rmit.myhealth.model.HealthRecord;
 import rmit.myhealth.model.HealthRecordController;
 import rmit.myhealth.model.MyHealth;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -44,6 +48,20 @@ public class ExportRecordsController {
 
     private ObservableList<HealthRecord> selectedRecords;
 
+    private String filePath;
+
+    private String fileName;
+
+    // Receive the file path from export details.
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    // Receive the file name from export details.
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     // Initialise the table and retrieve selections.
     public void initialise() {
         selectedRecords = FXCollections.observableArrayList();
@@ -71,23 +89,35 @@ public class ExportRecordsController {
 
     // Pass the selected records and provide feedback.
     @FXML
-    private void handleExport() {
+    public void handleExport() {
         if (selectedRecords.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "No Records Selected", "Please select at least one record to export.");
+        } else if (filePath == null) {
+            showAlert(Alert.AlertType.WARNING, "Missing File Path", "Please choose a file location.");
+        } else if (fileName == null) {
+            showAlert(Alert.AlertType.WARNING, "Missing File Name", "Please choose a file name.");
         } else {
-            if (exportRecords(selectedRecords)) {
+            File directory = new File(filePath);
+            if (!directory.exists()) {
+                showAlert(Alert.AlertType.ERROR, "Directory Not Found", "The specified directory does not exist.");
+                return;
+            }
+
+            File file = new File(directory, fileName);
+            if (exportRecords(selectedRecords, file)) {
                 closeWindow();
-                showAlert(Alert.AlertType.CONFIRMATION, "Export Confirmed", "Record was successfully exported.");
+                showAlert(Alert.AlertType.CONFIRMATION, "Export Confirmed", "Records were successfully exported.");
             } else {
-                showAlert(Alert.AlertType.ERROR, "Export Failed", "Record was not successfully exported.");
+                showAlert(Alert.AlertType.ERROR, "Export Failed", "Records were not successfully exported.");
             }
         }
     }
 
+
     // Export the selected records to the csv.
-    private boolean exportRecords(List<HealthRecord> records) {
+    private boolean exportRecords(List<HealthRecord> records, File file) {
         try {
-            FileWriter fileWriter = new FileWriter("exported_records.csv");
+            FileWriter fileWriter = new FileWriter(file);
             PrintWriter printWriter = new PrintWriter(fileWriter);
 
             // Write CSV header
@@ -111,9 +141,25 @@ public class ExportRecordsController {
         }
     }
 
+    @FXML
+    private void openExportDetailsWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ExportDetails.fxml"));
+            Parent root = loader.load();
+            ExportDetailsController controller = loader.getController();
+            controller.setExportRecordsController(this);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
-    private void closeWindow() {
+    void closeWindow() {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
