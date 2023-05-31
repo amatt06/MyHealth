@@ -1,5 +1,7 @@
 package rmit.myhealth;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -7,7 +9,7 @@ import rmit.myhealth.model.HealthRecord;
 import rmit.myhealth.model.HealthRecordController;
 import rmit.myhealth.model.MyHealth;
 
-import java.util.Optional;
+import java.util.List;
 
 public class ExportRecordsController {
     @FXML
@@ -34,46 +36,68 @@ public class ExportRecordsController {
     @FXML
     private Button cancelButton;
 
-    // Present the table of records to the user.
+    @FXML
+    private Button exportButton;
+
+    private ObservableList<HealthRecord> selectedRecords;
+
+    // Initialise the table and retrieve selections.
     public void initialise() {
+        selectedRecords = FXCollections.observableArrayList();
         RecordTable.setupTableColumns(recordsTable, weightColumn, temperatureColumn, bloodPressureUpperColumn, bloodPressureLowerColumn, noteColumn, dateTimeColumn);
 
         HealthRecordController healthRecordController = MyHealth.getInstance().getCurrentUser().getHealthRecordController();
         RecordTable.setRecordsTable(recordsTable, healthRecordController);
 
-        // Add row click event handler for double click
-        recordsTable.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) {
-                HealthRecord selectedRecord = recordsTable.getSelectionModel().getSelectedItem();
-                if (selectedRecord != null) {
-                    exportRecords(selectedRecord);
-                    closeWindow();
-                    successAlert();
+        recordsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        recordsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            selectedRecords.setAll(recordsTable.getSelectionModel().getSelectedItems());
+        });
 
-                }
-            }
+        // Apply CSS to highlight selected rows
+        recordsTable.setRowFactory(tv -> {
+            TableRow<HealthRecord> row = new TableRow<>();
+            row.styleProperty().bind(
+                    javafx.beans.binding.Bindings
+                            .when(row.selectedProperty())
+                            .then("-fx-background-color: lightblue;")
+                            .otherwise(""));
+            return row;
         });
     }
 
-    private void exportRecords(HealthRecord record) {
-
+    // Pass the selected records and provide feedback.
+    @FXML
+    private void handleExport() {
+        if (selectedRecords.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "No Records Selected", "Please select at least one record to export.");
+        } else {
+            if (exportRecords(selectedRecords)) {
+                closeWindow();
+                showAlert(Alert.AlertType.CONFIRMATION, "Export Confirmed", "Record was successfully exported.");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Export Failed", "Record was not successfully exported.");
+            }
+        }
     }
 
+    // Export the selected records to the csv.
+    private boolean exportRecords(List<HealthRecord> records) {
+        System.out.println(records);
+        return false;
+    }
 
-    // Close the current window
     @FXML
     private void closeWindow() {
-        // Get the reference to the current window's stage
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
-    // Confirm successful export.
-    private void successAlert() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Record Exported");
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
         alert.setHeaderText(null);
-        alert.setContentText("Record was successfully exported.");
+        alert.setContentText(message);
         alert.showAndWait();
     }
 }
