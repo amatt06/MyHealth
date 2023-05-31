@@ -27,7 +27,7 @@
             <MenuItem onAction="#handleDelete" text="Delete"/>
         </Menu>
         <Menu text="Export">
-            <MenuItem text="Select Records"/>
+            <MenuItem onAction="#handleExport" text="Select Records"/>
         </Menu>
         <Menu text="About">
             <MenuItem text="About MyHealth"/>

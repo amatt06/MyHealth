@@ -105,6 +105,23 @@ public class UserBoardController {
     }
 
     @FXML
+    private void handleExport() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ExportRecords.fxml"));
+            Parent root = loader.load();
+            ExportRecordsController controller = loader.getController();
+            controller.initialise();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void closeWindow() {
         // Get the reference to the current window's stage
         Stage stage = (Stage) welcomeLabel.getScene().getWindow();
