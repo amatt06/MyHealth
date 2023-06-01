@@ -1,6 +1,7 @@
 package rmit.myhealth;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -33,22 +34,31 @@ public class NewRecordController {
     private void saveRecord() {
         if (MyHealth.getInstance().getCurrentUser() != null && MyHealth.getInstance().getCurrentUser().getHealthRecordController() != null) {
             // Retrieve the entered information from the form
-            double weight = Double.parseDouble(weightField.getText());
-            double temperature = Double.parseDouble(temperatureField.getText());
-            int bloodPressureUpper = Integer.parseInt(bloodPressureUpperField.getText());
-            int bloodPressureLower = Integer.parseInt(bloodPressureLowerField.getText());
-            String note = noteField.getText();
-            LocalDateTime dateTime = LocalDateTime.now();
+            try {
+                double weight = Double.parseDouble(weightField.getText());
+                double temperature = Double.parseDouble(temperatureField.getText());
+                int bloodPressureUpper = Integer.parseInt(bloodPressureUpperField.getText());
+                int bloodPressureLower = Integer.parseInt(bloodPressureLowerField.getText());
+                String note = noteField.getText();
+                LocalDateTime dateTime = LocalDateTime.now();
 
-            // Create a new HealthRecord object
-            HealthRecord healthRecord = new HealthRecord(weight, temperature, bloodPressureUpper, bloodPressureLower, note, dateTime);
+                // Create a new HealthRecord object
+                HealthRecord healthRecord = new HealthRecord(weight, temperature, bloodPressureUpper, bloodPressureLower, note, dateTime);
 
-            // Add the record to the user's HealthRecordController
-            MyHealth.getInstance().getCurrentUser().getHealthRecordController().addRecord(healthRecord);
+                // Add the record to the user's HealthRecordController
+                MyHealth.getInstance().getCurrentUser().getHealthRecordController().addRecord(healthRecord);
 
-            // Close the window
-            closeWindow();
+                // Close the window
+                closeWindow();
+            } catch (IllegalArgumentException e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Invalid Values");
+                alert.setHeaderText(null);
+                alert.setContentText("Error.  Please enter valid values");
+                alert.showAndWait();
+            }
         }
+
     }
 
 
