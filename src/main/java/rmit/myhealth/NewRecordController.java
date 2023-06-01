@@ -58,7 +58,6 @@ public class NewRecordController {
                 alert.showAndWait();
             }
         }
-
     }
 
 
