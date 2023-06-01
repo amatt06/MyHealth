@@ -7,12 +7,24 @@ import javafx.stage.Stage;
 import rmit.myhealth.model.MyHealth;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 public class MyHealthApp extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
+        MyHealth myHealth = MyHealth.getInstance();
+
+        // Connect to the database
+        Connection connection = myHealth.connectToDatabase();
+
+        // Create the necessary tables
+        myHealth.createTables(connection);
+
+        // Open the login screen
         openLogin();
     }
+
 
     public static void openLogin() throws IOException {
         MyHealth myHealth = MyHealth.getInstance();
