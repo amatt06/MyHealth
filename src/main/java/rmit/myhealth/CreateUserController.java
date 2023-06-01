@@ -62,22 +62,29 @@ public class CreateUserController {
             return false;
         }
 
-        // Check if the username is already taken
+        // Check if the username is already taken within the program's memory
         if (myHealth.getUserController().getUser(username) != null) {
             feedbackLabel.setText("Username unavailable");
             return false;
         }
 
-        // Save the user in the backend
-        myHealth.createUser(username, password, firstName, lastName);
-
-        if (pictureAdded) {
-            myHealth.getUserController().getUser(username).getProfile().setProfilePicture(profilePicture);
+        // Check if the username or password is already present in the database
+        if (myHealth.UserExistsInDatabase(username)) {
+            feedbackLabel.setText("Username unavailable");
+            return false;
         }
 
-        // Check if the user was stored successfully
-        User storedUser = myHealth.getUserController().getUser(username);
-        if (storedUser != null) {
+        // Save the user in the backend
+        boolean isUserCreated = myHealth.getUserController().createUser(username, password, firstName, lastName);
+
+        if (isUserCreated) {
+            // Call the registration method to store the user in the database
+            myHealth.registerUser(myHealth.connectToDatabase(), username, password);
+
+            if (pictureAdded) {
+                myHealth.getUserController().getUser(username).getProfile().setProfilePicture(profilePicture);
+            }
+
             // Call the updateFeedbackLabel method in LoginController
             loginController.updateFeedbackLabel(true);
             // Close the window
@@ -88,6 +95,7 @@ public class CreateUserController {
 
         return false;
     }
+
 
     @FXML
     private void selectPicture() {

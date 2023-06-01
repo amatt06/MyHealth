@@ -1,10 +1,6 @@
 package rmit.myhealth.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 
 public class MyHealth {
@@ -89,7 +85,7 @@ public class MyHealth {
         registerUser(connectToDatabase(), username, password);
     }
 
-    private void registerUser(Connection connection, String username, String password) {
+    public void registerUser(Connection connection, String username, String password) {
         try {
             Statement statement = connection.createStatement();
             String insertUserQuery = "INSERT INTO users (username, password) VALUES ('" + username + "', '" + password + "')";
@@ -113,5 +109,53 @@ public class MyHealth {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean UserExistsInDatabase(String username) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connectToDatabase();
+
+            // Prepare the SQL statement
+            String query = "SELECT username FROM users WHERE username = ?";
+            statement = connection.prepareStatement(query);
+            statement.setString(1, username);
+
+            // Execute the query
+            resultSet = statement.executeQuery();
+
+            // Check if any rows are returned
+            return resultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close the database resources
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return false;
     }
 }

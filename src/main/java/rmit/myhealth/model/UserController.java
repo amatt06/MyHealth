@@ -10,10 +10,11 @@ public class UserController {
         users = new HashMap<String, User>();
     }
 
-    public void createUser(String username, String password, String firstName, String lastName) {
+    public boolean createUser(String username, String password, String firstName, String lastName) {
         Profile profile = new Profile(firstName, lastName);
         User newUser = new User(username, password, profile);
         users.put(username, newUser);
+        return true;
     }
 
     public User getUser(String username) {
